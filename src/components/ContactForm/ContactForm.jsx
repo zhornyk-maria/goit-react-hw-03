@@ -12,9 +12,11 @@ const ContactForm = ({handleSubmit}) => {
 
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         <Form className={css.form}>
-          <Field type="text" name="name" required/>
-          <Field type="tel" name="number" required/>
-          <button type="submit">Add contact</button>
+          <label htmlFor="name">Name</label>
+          <Field type="text" id="name" name="name" className={css.input} required />
+          <label htmlFor="number">Number</label>
+          <Field type="tel" id="number" name="number" className={css.input} required/>
+          <button type="submit" className={css.button}>Add contact</button>
         </Form>
     </Formik>
     

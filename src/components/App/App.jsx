@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
 import './App.css';
 import ContactForm from '../ContactForm/ContactForm.jsx';
@@ -10,9 +10,19 @@ import contactsData from '../../Contacts.json';
 function App() {
 
   const [contacts, setContacts] = useState(() => {
-    const storedContacts = localStorage.getItem('contacts');
-    return storedContacts ? JSON.parse(storedContacts) : contactsData;
+    const stringifiedContacts = localStorage.getItem('contacts');
+    
+    if (!stringifiedContacts) return contactsData;
+
+    const parsedContacts = JSON.parse(stringifiedContacts);
+    return parsedContacts;
   });
+
+  const [filter, setFilter] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
 
   const onAddContact = (formData) => {
     const newContact = {
@@ -22,8 +32,11 @@ function App() {
 
     // setContacts([...contacts, newContact]);
     setContacts((prevState) => [...prevState, newContact]);
-    localStorage.setItem('contacts', JSON.stringify([...contacts, newContact]));
   };
+
+  const onChangeFilter = (event) => {
+    setFilter(event.target.value);
+  }
 
   const handleSubmit = (values, actions) => {
     const formData = {
@@ -35,20 +48,20 @@ function App() {
     actions.resetForm();
   };
 
-  // const deleteContact = (contactId) => {
-  //   const updatedContacts = contacts.filter(contact => contact.id !== contactId);
-  //   setContacts(updatedContacts);
-  //   localStorage.setItem('contacts', JSON.stringify(updatedContacts));
-  // };
+  const onDeleteContact = (contactId) => {
+    setContacts(prevContacts => prevContacts.filter(contact => contact.id !== contactId));
+  }
 
-  
+  const filteredContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
 
   return (
     <div>
-      <h1>Phonebook</h1>
+      <h1 className='title'>Phonebook</h1>
       <ContactForm handleSubmit={handleSubmit} />
-      <SearchBox />
-      <ContactList contacts={contacts} />
+      <SearchBox filter={filter} onChangeFilter={onChangeFilter} />
+      <ContactList contacts={filteredContacts} onDeleteContact={onDeleteContact} />
     </div>
   )
 }

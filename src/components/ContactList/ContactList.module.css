@@ -1,0 +1,23 @@
+.contactsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.contactsItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #000;
+  text-align: left;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #e1dede;
+}
