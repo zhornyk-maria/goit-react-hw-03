@@ -11,7 +11,7 @@
 
 .button {
   width: 130px;
-  margin: 0 auto;
+  margin: 20px auto;
   background-color: #f1efef;
   border: 1px solid #262626;
   transition: all 0.3s ease-in;
@@ -26,5 +26,12 @@
   display: block;
   box-sizing: border-box;
   height: 30px;
-  margin-bottom: 20px;
+}
+
+.input + label {
+  margin-top: 20px;
+}
+
+.errorMessage {
+  color: #ff0000;
 }

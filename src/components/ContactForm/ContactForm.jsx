@@ -23,10 +23,10 @@ const ContactForm = ({handleSubmit}) => {
         <Form className={css.form}>
           <label htmlFor="name">Name</label>
           <Field type="text" id="name" name="name" className={css.input} />
-          <ErrorMessage component="p" name="name"/>
+        <ErrorMessage component="p" name="name" className={css.errorMessage} />
           <label htmlFor="number">Number</label>
           <Field type="tel" id="number" name="number" className={css.input} />
-          <ErrorMessage component="p" name="number"/>
+          <ErrorMessage component="p" name="number" className={css.errorMessage}/>
           <button type="submit" className={css.button}>Add contact</button>
         </Form>
     </Formik>
